@@ -1,0 +1,12 @@
+# Requirements pinned to versions found in `myvenv` (generated 2025-12-03)
+# These reflect the versions installed in the project's virtualenv and
+# are a reasonable "latest stable" baseline for reproducing the environment.
+tensorflow==2.19.0
+numpy==2.1.3
+scikit-learn==1.7.1
+opencv-python==4.12.0.88
+requests==2.32.4
+h5py==3.14.0
+
+# If you prefer different pinning (e.g. loosened ranges, latest on PyPI),
+# tell me and I will update this file accordingly.

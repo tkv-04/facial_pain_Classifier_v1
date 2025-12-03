@@ -1,0 +1,9 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+/dataset_mergerd_severe/
+/ollama_cleaned_dataset/
+/Pictures/
+/temp_symlink_dataset/
+/to_filter/
+/myvenv/
