@@ -46,8 +46,6 @@ Press `q` in the display window to quit.
 - Webcam not found: ensure camera drivers are installed and no other app is using the camera. On some Windows systems you may need to allow camera access in Settings.
 - OpenCV: the package `opencv-python` is used for capture and Haar cascade face detection. The cascade path used is `cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'`.
 - TensorFlow GPU: `requirements.txt` pins `tensorflow==2.19.0` — if you need GPU acceleration, ensure your CUDA/cuDNN versions match TensorFlow's requirements.
-- If you prefer to run inference with the TFLite model, I can add a small runner script showing how to do that.
 
-**Reproducibility & env**
-- The included `requirements.txt` contains pinned versions discovered in the repository's `myvenv` — install that to reproduce the same environment.
+
 
