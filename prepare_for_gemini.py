@@ -4,7 +4,7 @@ import csv
 
 # --- CONFIG ---
 SOURCE_DIR = 'to_filter'
-OLLAMA_CSV = 'ollama_classification.csv'
+OLLAMA_CSV = 'CSVs/ollama_classification.csv'
 DEST_DIR = 'ollama_cleaned_dataset'
 
 os.makedirs(DEST_DIR, exist_ok=True)

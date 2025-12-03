@@ -7,7 +7,7 @@ import time
 OLLAMA_URL = 'http://localhost:11434/api/generate'
 MODEL = 'llava:13b'  # or 'llava:34b' or any vision model you pulled
 IMAGE_DIR = 'to_filter/to_classify'
-RESULT_CSV = 'ollama_classification2.csv'
+RESULT_CSV = 'CSVs/ollama_classification2.csv'
 PROMPT = "Classify this face image as one of: mild, moderate, severe. Only return the class name."
 RETRY_DELAY = 10  # seconds to wait before retrying connection
 
