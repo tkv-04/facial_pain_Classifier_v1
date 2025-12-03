@@ -51,9 +51,3 @@ Press `q` in the display window to quit.
 **Reproducibility & env**
 - The included `requirements.txt` contains pinned versions discovered in the repository's `myvenv` — install that to reproduce the same environment.
 
-**Next steps I can help with**
-- Add a small script to run inference on an image folder with the `.tflite` model.
-- Add instructions or scripts to convert/quantize TFLite models.
-- Create a `requirements-dev.txt` with dev-only tools (formatters, linters, testing).
-
-If you'd like, I can update the README to include example output screenshots, a model card, or a short note about ethical considerations and intended use.
