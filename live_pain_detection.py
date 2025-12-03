@@ -3,7 +3,7 @@ import numpy as np
 import tensorflow as tf
 
 # --- CONFIG ---
-MODEL_PATH = 'pain_classifier_mobilenetv2.h5'
+MODEL_PATH = 'models/pain_classifier_mobilenetv2.h5'
 IMG_SIZE = (224, 224)
 CLASS_NAMES = ['mild', 'moderate', 'none', 'severe']  # Must match your training order
 CASCADE_PATH = cv2.data.haarcascades + 'haarcascade_frontalface_default.xml'
