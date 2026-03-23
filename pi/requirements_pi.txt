@@ -1,0 +1,22 @@
+# Requirements for Raspberry Pi Pain Detection
+# Install on your Raspberry Pi with: pip install -r requirements_pi.txt
+
+# TFLite Runtime (lightweight — no full TensorFlow needed)
+# Install the wheel matching your Pi's Python version from:
+#   https://google-coral.github.io/py-repo/tflite-runtime
+# Example for Pi 4/5 with Python 3.11:
+#   pip install tflite-runtime
+tflite-runtime
+
+# PiCamera2 (pre-installed on Raspberry Pi OS Bookworm+)
+# If missing: sudo apt install -y python3-picamera2
+picamera2
+
+# OpenCV (headless variant, smaller install on Pi)
+opencv-python-headless==4.12.0.88
+
+# Flask web framework
+flask>=3.0
+
+# NumPy
+numpy==2.1.3

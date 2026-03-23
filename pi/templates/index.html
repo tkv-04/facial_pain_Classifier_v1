@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pain Detection Dashboard</title>
+    <meta name="description" content="Real-time facial pain severity classification dashboard with patient management">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="header-left">
+            <div class="logo-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 2a10 10 0 0 1 10 10 10 10 0 0 1-10 10A10 10 0 0 1 2 12 10 10 0 0 1 12 2z"/>
+                    <circle cx="8.5" cy="9.5" r="1"/>
+                    <circle cx="15.5" cy="9.5" r="1"/>
+                    <path d="M8 14s1.5 2 4 2 4-2 4-2"/>
+                </svg>
+            </div>
+            <h1>Pain Detection</h1>
+        </div>
+        <nav class="header-nav">
+            <button class="nav-btn active" id="nav-dashboard" data-view="dashboard">Dashboard</button>
+            <button class="nav-btn" id="nav-history" data-view="history">Patient History</button>
+        </nav>
+    </header>
+
+    <!-- ====== DASHBOARD VIEW ====== -->
+    <main class="dashboard view-active" id="view-dashboard">
+
+        <!-- Patient Session Bar -->
+        <section class="session-bar" id="session-bar">
+            <div class="session-form" id="session-form">
+                <div class="input-group">
+                    <label for="patient-name">Patient Name</label>
+                    <input type="text" id="patient-name" placeholder="Enter patient name…"
+                           autocomplete="off" spellcheck="false">
+                </div>
+                <button class="btn btn-start" id="btn-start">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><polygon points="5,3 19,12 5,21"/></svg>
+                    Start Session
+                </button>
+            </div>
+            <div class="session-active-bar hidden" id="session-active-bar">
+                <div class="session-info">
+                    <span class="session-patient-name" id="session-patient-label"></span>
+                    <span class="session-timer" id="session-timer">00:00</span>
+                    <span class="badge badge-live">Recording</span>
+                </div>
+                <button class="btn btn-stop" id="btn-stop">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>
+                    Stop Session
+                </button>
+            </div>
+        </section>
+
+        <!-- Main Grid -->
+        <div class="grid">
+            <!-- Live Video Feed -->
+            <section class="card card-video" id="video-card">
+                <div class="card-header">
+                    <h2>Live Feed</h2>
+                    <span class="live-dot" id="live-dot"></span>
+                </div>
+                <div class="video-wrapper">
+                    <img src="/video_feed" alt="Live camera feed" id="video-feed">
+                    <!-- Idle overlay -->
+                    <div class="video-overlay" id="video-overlay">
+                        <p>Enter a patient name and click <strong>Start Session</strong> to begin.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Current Classification -->
+            <section class="card card-status" id="status-card">
+                <div class="card-header"><h2>Current Status</h2></div>
+                <div class="status-content">
+                    <div class="class-label" id="class-label">—</div>
+                    <div class="confidence-bar-container">
+                        <div class="confidence-bar" id="confidence-bar">
+                            <span id="confidence-text">0%</span>
+                        </div>
+                    </div>
+                    <div class="probabilities" id="probabilities">
+                        <div class="prob-row">
+                            <span class="prob-name">None</span>
+                            <div class="prob-bar-bg"><div class="prob-bar" id="prob-none"></div></div>
+                            <span class="prob-val" id="prob-none-val">0%</span>
+                        </div>
+                        <div class="prob-row">
+                            <span class="prob-name">Mild</span>
+                            <div class="prob-bar-bg"><div class="prob-bar" id="prob-mild"></div></div>
+                            <span class="prob-val" id="prob-mild-val">0%</span>
+                        </div>
+                        <div class="prob-row">
+                            <span class="prob-name">Moderate</span>
+                            <div class="prob-bar-bg"><div class="prob-bar" id="prob-moderate"></div></div>
+                            <span class="prob-val" id="prob-moderate-val">0%</span>
+                        </div>
+                        <div class="prob-row">
+                            <span class="prob-name">Severe</span>
+                            <div class="prob-bar-bg"><div class="prob-bar" id="prob-severe"></div></div>
+                            <span class="prob-val" id="prob-severe-val">0%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Cards -->
+            <section class="card card-stats" id="stats-card">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-total">0</div>
+                        <div class="stat-label">Detections</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-avg-conf">0%</div>
+                        <div class="stat-label">Avg Confidence</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-dominant">—</div>
+                        <div class="stat-label">Most Frequent</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="stat-fps">0</div>
+                        <div class="stat-label">FPS</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline Chart -->
+            <section class="card card-timeline" id="timeline-card">
+                <div class="card-header"><h2>Confidence Timeline</h2></div>
+                <div class="chart-container">
+                    <canvas id="timeline-chart"></canvas>
+                </div>
+            </section>
+
+            <!-- Distribution Doughnut -->
+            <section class="card card-distribution" id="distribution-card">
+                <div class="card-header"><h2>Class Distribution</h2></div>
+                <div class="chart-container chart-container-doughnut">
+                    <canvas id="distribution-chart"></canvas>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ====== HISTORY VIEW ====== -->
+    <main class="history-view" id="view-history">
+        <div class="history-header">
+            <h2>Patient History</h2>
+            <p class="history-subtitle">All past sessions stored in <code>patients.json</code></p>
+        </div>
+        <div class="history-list" id="history-list">
+            <!-- Populated by JS -->
+            <div class="history-empty" id="history-empty">
+                <p>No patient records yet. Start a session to begin tracking.</p>
+            </div>
+        </div>
+
+        <!-- Detail modal -->
+        <div class="modal-backdrop hidden" id="modal-backdrop">
+            <div class="modal" id="patient-modal">
+                <div class="modal-header">
+                    <h3 id="modal-patient-name"></h3>
+                    <button class="modal-close" id="modal-close">&times;</button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <!-- Filled by JS -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="/static/dashboard.js"></script>
+</body>
+</html>
